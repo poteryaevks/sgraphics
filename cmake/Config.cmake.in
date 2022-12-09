@@ -1,0 +1,69 @@
+#   sgraphics_FOUND            - True if headers and requested libraries were found
+#   SG_INCLUDE_DIRS     - SG include directories
+#   SG_LIBRARIES        - SG component libraries to be linked
+#   sgraphics_VERSION          - SG_VERSION value from SG
+
+
+####### Expanded from @PACKAGE_INIT@ by configure_package_config_file() #######
+####### Any changes to this file will be overwritten by the next CMake run ####
+####### The input file was Config.cmake.in                            ########
+
+cmake_policy(SET CMP0057 NEW)
+
+get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../" ABSOLUTE)
+
+macro(set_and_check _var _file)
+set(${_var} "${_file}")
+if(NOT EXISTS "${_file}")
+message(FATAL_ERROR "File or directory ${_file} referenced by variable ${_var} does not exist !")
+endif()
+endmacro()
+
+macro(check_required_components _NAME)
+foreach(comp ${${_NAME}_FIND_COMPONENTS})
+if(NOT ${_NAME}_${comp}_FOUND)
+if(${_NAME}_FIND_REQUIRED_${comp})
+set(${_NAME}_FOUND FALSE)
+endif()
+endif()
+endforeach()
+endmacro()
+
+####################################################################################
+
+set(_supported_components
+    convertion
+    geometry
+    engine
+)
+
+message("Found the following SG libraries:")
+
+# Get definition of 'find_dependency' macro
+include(CMakeFindDependencyMacro)
+
+foreach(_comp ${SG_FIND_COMPONENTS})
+
+# Find Eigen3. This will create 'Eigen3::Eigen' target
+find_dependency(GLEW)
+find_dependency(SDL2)
+
+if (NOT _comp IN_LIST _supported_components)
+set(SG_FOUND False)
+set(SG_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+endif()
+
+message(${_comp})
+
+include("${CMAKE_CURRENT_LIST_DIR}/SG${_comp}Targets.cmake")
+
+endforeach()
+
+message("SG version: ${SG_VERSION}")
+set (SG_INCLUDE_DIRS "${PACKAGE_PREFIX_DIR}/../include")
+
+
+####################################################################################
+
+
+
