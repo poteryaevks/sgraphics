@@ -9,7 +9,7 @@
 #include <string>
 #include <stdexcept>
 
-#include <almaz/misc/singleton.h>
+#include <alm/misc/singleton.h>
 
 // GLEW
 #define GLEW_STATIC
@@ -32,9 +32,9 @@ extern IPolygon* polygonPtr;
 template <class GameImpl>
 class Polygon final
         : public IPolygon,
-        public almaz::misc::Singleton<Polygon<GameImpl>>
+        public alm::misc::Singleton<Polygon<GameImpl>>
 {
-    friend class almaz::misc::Singleton<Polygon>;
+    friend class alm::misc::Singleton<Polygon>;
     using game_ptr_type = std::shared_ptr<GameImpl>;
 private:
 

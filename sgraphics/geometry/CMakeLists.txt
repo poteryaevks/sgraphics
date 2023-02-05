@@ -24,11 +24,6 @@ target_include_directories(${TARGET_NAME} PRIVATE
     # "${SG_DEPS_INCLUDE}"
     )
 
-# target_include_directories(${TARGET_NAME} PUBLIC
-#     "C:\\Program Files (x86)\\glew\\include"
-#     "C:\\Program Files (x86)\\SDL2\\include"
-#     )
-
 target_link_libraries(${TARGET_NAME} PRIVATE
     GLEW
     SDL2

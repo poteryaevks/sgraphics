@@ -34,7 +34,7 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     SDL2
     SDL2_image
 #     "${CMAKE_INSTALL_PREFIX}/${LIBRARY_INSTALL_DIR}/libSDL2_image.dll"
-    Almaz::misc
+    # alm::misc
     )
 
 # target_link_libraries(${TARGET_NAME} PRIVATE

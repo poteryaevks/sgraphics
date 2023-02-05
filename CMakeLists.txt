@@ -28,17 +28,15 @@ find_package(Boost 1.62
     
 # Seek Qt
 
-find_package(Qt5 COMPONENTS Core REQUIRED)
+# find_package(Qt5 COMPONENTS Core REQUIRED)
 
-# Seek Almaz
+if(NOT alm_FOUND)
 
-if(NOT Almaz_FOUND)
-
-    if(EXISTS ${ALMAZ_ROOT})
-        list(APPEND CMAKE_PREFIX_PATH "${ALMAZ_ROOT}/lib/cmake/almaz")
+    if(EXISTS ${ALM_ROOT})
+        list(APPEND CMAKE_PREFIX_PATH "${ALM_ROOT}/lib/cmake/alm")
     endif()
 
-    find_package(Almaz CONFIG
+    find_package(alm CONFIG
         COMPONENTS
         vimpel
         misc
@@ -83,29 +81,6 @@ if(${SDL2_FOUND})
 endif()
 
 # Seek
-
-# Seek Almaz
-
-if(NOT Almaz_FOUND)
-
-    if(EXISTS ${ALMAZ_ROOT})
-        list(APPEND CMAKE_PREFIX_PATH "${ALMAZ_ROOT}/lib/cmake/almaz")
-    endif()
-
-    find_package(Almaz CONFIG
-        COMPONENTS
-        vimpel
-        misc
-        config
-        math
-        prot_decl
-        router
-        logger
-        REQUIRED
-        )
-
-endif()
-
 
 set(CMAKE_DEBUG_POSTFIX "d")
 
