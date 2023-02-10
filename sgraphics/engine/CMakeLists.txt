@@ -5,6 +5,7 @@ set(TARGET_NAME engine)
 
 file(GLOB _SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/impl/*.cpp
     )
 
 file (GLOB _HEADER_FILES
@@ -24,10 +25,7 @@ target_include_directories(${TARGET_NAME}
     # "${SG_DEPS_INCLUDE}"
     )
 
-# target_include_directories(${TARGET_NAME} PUBLIC
-#     "C:\\Program Files (x86)\\glew\\include"
-#     "C:\\Program Files (x86)\\SDL2\\include"
-#     )
+target_compile_features(${TARGET_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     GLEW

@@ -1,80 +1,73 @@
-//#include <gtest/gtest.h>
-
 #include <iostream>
+#include <string>
 
+#include "sgraphics/geometry/types.hpp"
 #include "sgraphics/geometry/olc.h"
+#include "sgraphics/engine/IRenderer.hpp"
+#include "sgraphics/engine/Engine.hpp"
+#include "sgraphics/engine/BaseGame.hpp"
 
-#include "sgraphics/engine/polygon.h"
-#include "sgraphics/engine/polygon_funcs.h"
-
-//!
-//! \brief The SgTest class
-//!
-class SgTest
+namespace
 {
+    class TestGameImpl final : public sg::BaseGame
+    {
+    public:
+        TestGameImpl(const std::string &title)
+            : sg::BaseGame(title),
+              renderer_(sg::GetEngine().GetRenderer()),
+              eventer_(sg::GetEngine().GetEventer())
+        {
+            if (eventer_)
+            {
+                eventer_->AddEventHandler(*this, &TestGameImpl::EventHandler);
+            }
+        }
 
-public:
+        ~TestGameImpl() = default;
 
-    SgTest() = default;
-    ~SgTest() = default;
+        void OnUpdate(const Duration &duration) override
+        {
+            renderer_->ClearScreen({255, 255, 255, 255});
 
-    //!
-    //! \brief initImpl
-    //!
-    void initImpl(){
+            renderer_->DrawRect(sg::IntRectType({{0, 0}, {20, 20}}),
+                                {255, 0, 0, 100}, true);
 
-    }
+            renderer_->DrawCircle({500, 500}, 100, {255, 0, 0, 100}, true);
+        }
 
-    //!
-    //! \brief updateImpl
-    //! \param fElapsedTime
-    //!
-    void updateImpl(float fElapsedTime){
+        void OnQuit() override {}
 
-        using rect_type = olc::aabb::rect<float>;
+        void EventHandler(sg::IEvent::Ptr event)
+        {
+            if (!event)
+                return;
 
-        sg::engine::clearScreen({255, 255, 255, 255});
+            switch (event->GetType())
+            {
+            case sg::EventType::Quit:
+                quit_ = true;
+                break;
 
-        sg::engine::drawRect(
-                    rect_type({{0, 0}, {20, 20}}),
-        {255, 0, 0, 100},
-                    true
-                    );
+            default:
+                break;
+            }
+        }
 
-        sg::engine::drawCircle(
-        {500, 500},
-                    100,
-        {255, 0, 0, 100},
-                    true
-                    );
-    }
+    private:
+        sg::IRenderer::Ptr renderer_;
+        sg::IEventer::Ptr eventer_;
+    };
+}
 
-    //!
-    //! \brief quitImpl
-    //!
-    void quitImpl(){
-
-    }
-
-};
-
-//!
-//! \brief main
-//! \param argc
-//! \param argv
-//! \return
-//!
 int main(int argc, char *argv[])
-{/*
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();*/
-    try{
-
-        sg::engine::Polygon<SgTest>::instance().init();
-        sg::engine::Polygon<SgTest>::instance().run();
+{
+    try
+    {
+        TestGameImpl game("TestGameImpl");
+        game.Run();
     }
-    catch(const std::exception& ex){
-
+    catch (const std::exception &ex)
+    {
         std::cout << ex.what() << std::endl;
         return -1;
     }

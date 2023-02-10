@@ -16,20 +16,11 @@ else()
     message(FATAL_ERROR "LocalConfig.cmake has not been found. Please, put it into project root directory.")
 endif()
 
-# Seek Boost
-
-find_package(Boost 1.62
-    REQUIRED
-    COMPONENTS
+find_package(Boost 1.62 REQUIRED COMPONENTS
     program_options
     system
-    filesystem
     )
     
-# Seek Qt
-
-# find_package(Qt5 COMPONENTS Core REQUIRED)
-
 if(NOT alm_FOUND)
 
     if(EXISTS ${ALM_ROOT})
@@ -47,19 +38,6 @@ if(NOT alm_FOUND)
         logger
         REQUIRED
         )
-
-endif()
-
-# Seek GTest
-
-if(BUILD_TESTING)
-
-    find_package(GTest REQUIRED)
-
-    if(GTest_FOUND)
-        message("Found the following GTest libraries: " ${GTEST_LIBRARIES})
-        message("Found the following GTest include dirs: " ${GTEST_INCLUDE_DIRS})
-    endif()
 
 endif()
 
@@ -105,25 +83,9 @@ add_subdirectory(sgraphics/engine)
 
 
 if(BUILD_TESTING)
-#    enable_testing()
-#    add_subdirectory(tests)
+    enable_testing()
+    find_package(GTest REQUIRED)
+    add_subdirectory(tests)
 endif()
 
 _SG_CONFIGURE_PROJECT(${PROJECT_NAME})
-
-# if(WIN32)
-# install(FILES
-#     "${SG_DEPS_LIB_DIR}/libpng16.dll"
-#     "${SG_DEPS_LIB_DIR}/libSDL2_image.dll"
-#     "${SG_DEPS_LIB_DIR}/libzlib1.dll"
-#     DESTINATION "${LIBRARY_INSTALL_DIR}"
-#     )
-# 
-# install(FILES
-#     "${SG_DEPS_INCLUDE}/SDL_image.h"
-#     DESTINATION "${INCLUDE_INSTALL_DIR}"
-#     )
-# endif()
-
-
-
