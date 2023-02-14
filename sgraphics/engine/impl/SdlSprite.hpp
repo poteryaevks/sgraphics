@@ -24,7 +24,7 @@ namespace sg
         SdlSprite(const std::filesystem::path &path, const RgbType &rbg);
         ~SdlSprite() override;
 
-        void RenderCopy(const FloatRectType &src, const FloatRectType &dest) override;
+        void RenderCopy(const FRectType &src, const FRectType &dest) override;
         void RenderCopy(const IntRectType &src, const IntRectType &dest) override;
 
     private:

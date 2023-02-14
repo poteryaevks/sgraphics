@@ -24,11 +24,11 @@ namespace sg
         void RenderClear() override;
         void RenderPresent() override;
         ITexture::Ptr CreateTexture(IImage::Ptr) override;
-        void DrawRect(const FloatRectType &rect, const RgbType &rbg = {0, 0, 0, 255}, bool fill = false) override;
+        void DrawRect(const FRectType &rect, const RgbType &rbg = {0, 0, 0, 255}, bool fill = false) override;
         void DrawRect(const IntRectType &rect, const RgbType &rbg, bool fill = false) override;
         void DrawLine(const olc::vf2d &point1, const olc::vf2d &point2, const RgbType &rbg = {0, 0, 0, 255}) override;
         void DrawCircle(const olc::vi2d &point, std::int32_t radius, const RgbType &rbg = {0, 0, 0, 255}, bool fill = false) override;
-        bool RenderCopy(ITexture::Ptr texture, const FloatRectType &src, const FloatRectType &dest) override;
+        bool RenderCopy(ITexture::Ptr texture, const FRectType &src, const FRectType &dest) override;
         bool RenderCopy(ITexture::Ptr texture, const IntRectType &src, const IntRectType &dest) override;
     };
 }

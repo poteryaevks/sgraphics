@@ -104,7 +104,7 @@ namespace sg
         SDL_RenderPresent(renderer_);
     }
 
-    void SdlRenderer::DrawRect(const FloatRectType &rect, const RgbType &rbg, bool fill)
+    void SdlRenderer::DrawRect(const FRectType &rect, const RgbType &rbg, bool fill)
     {
         auto sdlRect = convertion::convert(rect);
 
@@ -153,7 +153,7 @@ namespace sg
         return ITexture::Ptr(new SdlTextureImpl(renderer_, sdlImageImpl->serface_));
     }
 
-    bool SdlRenderer::RenderCopy(ITexture::Ptr texture, const FloatRectType &src, const FloatRectType &dest)
+    bool SdlRenderer::RenderCopy(ITexture::Ptr texture, const FRectType &src, const FRectType &dest)
     {
         if (!texture)
             return false;

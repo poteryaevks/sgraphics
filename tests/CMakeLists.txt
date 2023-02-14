@@ -29,7 +29,7 @@ target_link_libraries(${TARGET_NAME}
 target_include_directories(${TARGET_NAME}
     PRIVATE ${GTEST_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}
-    "${CMAKE_SOURCE_DIR}/deps/include"
+    # "${CMAKE_SOURCE_DIR}/deps/include"
     )
 
 

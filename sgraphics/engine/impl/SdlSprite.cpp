@@ -31,7 +31,7 @@ namespace sg
 
     SdlSprite::~SdlSprite() = default;
 
-    void SdlSprite::RenderCopy(const FloatRectType &src, const FloatRectType &dest)
+    void SdlSprite::RenderCopy(const FRectType &src, const FRectType &dest)
     {
         auto renderer = Engine::instance().GetRenderer();
         if (!renderer)

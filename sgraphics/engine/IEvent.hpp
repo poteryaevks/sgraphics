@@ -11,7 +11,9 @@ namespace sg
     enum class EventType
     {
         Unable,
-        Quit
+        Quit,
+        MouseButtonDown,
+        MouseButtonUp
     };
 
     class IEvent : private boost::noncopyable

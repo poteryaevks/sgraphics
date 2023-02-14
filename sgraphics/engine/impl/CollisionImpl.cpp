@@ -1,0 +1,92 @@
+#include "CollisionImpl.hpp"
+
+#include <iostream>
+
+namespace sg
+{
+    StaticCollision::StaticCollision() = default;
+    StaticCollision::~StaticCollision() = default;
+
+    bool StaticCollision::Calculate(FRectType &rect, const RectsType &rects, float time)
+    {
+        for (auto &r : rects)
+        {
+            if (olc::aabb::RectVsRect(r, &rect))
+            {
+                if (rect.pos != r->pos)
+                {
+                    rect.pos -= rect.vel * time;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    ICollision::RectsType StaticCollision::GetContacts() const { return {}; }
+
+    ////////////////////////////////////////////////
+
+    DynamicCollision::DynamicCollision() = default;
+    DynamicCollision::~DynamicCollision() = default;
+
+    bool DynamicCollision::Calculate(FRectType &rect, const RectsType &rects, float time)
+    {
+        RectsType contacts;
+        olc::vf2d cp, cn;
+        float t = 0;
+
+        for (const auto &r : rects)
+        {
+            if (olc::aabb::DynamicRectVsRect(&rect, time, *r, cp, cn, t))
+                contacts.push_back(const_cast<FRectType *>(r));
+        }
+
+        for (auto &contact : contacts)
+        {
+            if (olc::aabb::DynamicRectVsRect(&rect, time, *contact, cp, cn, t))
+            {
+                rect.contact[0] = cn.y > 0 ? contact : nullptr;
+                rect.contact[1] = cn.x < 0 ? contact : nullptr;
+                rect.contact[2] = cn.y < 0 ? contact : nullptr;
+                rect.contact[3] = cn.x > 0 ? contact : nullptr;
+
+                rect.vel += cn * olc::vf2d(std::abs(rect.vel.x), std::abs(rect.vel.y)) * (1 - t);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    ICollision::RectsType DynamicCollision::GetContacts() const { return {}; }
+
+    ICollision::Ptr ICollision::Create(CollisionType type)
+    {
+        try
+        {
+            switch (type)
+            {
+            case CollisionType::Static:
+            {
+                return ICollision::Ptr(new StaticCollision);
+                break;
+            }
+            case CollisionType::Dynamic:
+            {
+                return ICollision::Ptr(new DynamicCollision);
+                break;
+            }
+            default:
+                break;
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
+        return nullptr;
+    }
+}

@@ -23,10 +23,35 @@ namespace sg
 
             switch (event_.type)
             {
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                switch (event.button.button)
+                {
+                case SDL_BUTTON_LEFT:
+                    type = EventType::MouseButtonDown;
+                    break;
+                default:
+                    break;
+                }
+                break;
+            }
+            case SDL_MOUSEBUTTONUP:
+            {
+                switch (event.button.button)
+                {
+                case SDL_BUTTON_LEFT:
+                    type = EventType::MouseButtonUp;
+                    break;
+                default:
+                    break;
+                }
+                break;
+            }
             case SDL_QUIT:
+            {
                 type = EventType::Quit;
                 break;
-
+            }   
             default:
                 break;
             }

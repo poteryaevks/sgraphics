@@ -37,6 +37,7 @@ namespace sg
             start = Clock::now();
             renderer->RenderClear();
             eventer->OnUpdate();
+            std::this_thread::sleep_for(1ms);
             this->OnUpdate(Clock::now() - start);
             renderer->RenderPresent();
         }
