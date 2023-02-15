@@ -30,4 +30,14 @@ namespace sg
         bool Calculate(FRectType &rect, const RectsType &rects, float time) override;
         RectsType GetContacts() const override;
     };
+
+    class DynamicCollision2 final: public ICollision
+    {
+    public:
+        DynamicCollision2();
+        ~DynamicCollision2() override;
+
+        bool Calculate(FRectType &rect, const RectsType &rects, float time) override;
+        RectsType GetContacts() const override;
+    };
 }

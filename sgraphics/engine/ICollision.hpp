@@ -10,15 +10,16 @@ namespace sg
 {
     enum class CollisionType
     {
-        Dynamic,
-        Static 
+        Dynamic, // deprecated
+        Static,
+        Dynamic2
     };
     
     class ICollision : private boost::noncopyable
     {
     public:
         using Ptr = std::shared_ptr<ICollision>;
-        using RectsType = std::vector<FRectType *>;
+        using RectsType = std::vector<FRectType*>;
 
         static Ptr Create(CollisionType);
         virtual RectsType GetContacts() const = 0;

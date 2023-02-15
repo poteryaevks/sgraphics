@@ -252,8 +252,8 @@ inline bool RayVsRect(const olc::vf2d& ray_origin, const olc::vf2d& ray_dir, con
     // considered a hit, the resolver wont change anything.
     return true;
 }
-
 inline bool DynamicRectVsRect(const olc::aabb::rect<float>* r_dynamic, const float fTimeStep, const olc::aabb::rect<float>& r_static,
+
                               olc::vf2d& contact_point, olc::vf2d& contact_normal, float& contact_time)
 {
     // Check if dynamic rectangle is actually moving - we assume rectangles are NOT in collision to start
@@ -279,10 +279,10 @@ inline bool ResolveDynamicRectVsRect(olc::aabb::rect<float>* r_dynamic, const fl
     float contact_time = 0.0f;
     if (DynamicRectVsRect(r_dynamic, fTimeStep, *r_static, contact_point, contact_normal, contact_time))
     {
-        if (contact_normal.y > 0) r_dynamic->contact[0] = r_static; else nullptr;
-        if (contact_normal.x < 0) r_dynamic->contact[1] = r_static; else nullptr;
-        if (contact_normal.y < 0) r_dynamic->contact[2] = r_static; else nullptr;
-        if (contact_normal.x > 0) r_dynamic->contact[3] = r_static; else nullptr;
+        r_dynamic->contact[0] = (contact_normal.y > 0) ? r_static : nullptr;
+        r_dynamic->contact[1] = (contact_normal.x < 0) ? r_static : nullptr;
+        r_dynamic->contact[2] = (contact_normal.y < 0) ? r_static : nullptr;
+        r_dynamic->contact[3] = (contact_normal.x > 0) ? r_static : nullptr;
 
         r_dynamic->vel += contact_normal * olc::vf2d(std::abs(r_dynamic->vel.x), std::abs(r_dynamic->vel.y)) * (1 - contact_time);
         return true;

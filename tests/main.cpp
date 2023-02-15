@@ -18,7 +18,7 @@ namespace
             : sg::BaseGame(title),
               renderer_(sg::GetEngine().GetRenderer()),
               eventer_(sg::GetEngine().GetEventer()),
-              collision_(sg::ICollision::Create(sg::CollisionType::Dynamic))
+              collision_(sg::ICollision::Create(sg::CollisionType::Dynamic2))
         {
             if (eventer_)
             {
@@ -26,8 +26,8 @@ namespace
             }
 
             rectsPtr_.push_back(new sg::FRectType({{200, 400}, {400, 50}}));
-            // rectsPtr_.push_back(new FRectType());
-            // rectsPtr_.push_back(new FRectType());
+            rectsPtr_.push_back(new sg::FRectType({{400, 10}, {50, 380}}));
+            // rectsPtr_.push_back(new sg::FRectType());
         }
 
         ~TestGameImpl() override
@@ -44,7 +44,7 @@ namespace
             auto timeMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
             olc::vf2d mousePos{(float)mousePosition_.first, (float)mousePosition_.second};
-            olc::vf2d centr {dynamicRect_.pos.x + dynamicRect_.size.x / 2, dynamicRect_.pos.y + dynamicRect_.size.y / 2}; 
+            olc::vf2d centr{dynamicRect_.pos.x + dynamicRect_.size.x / 2, dynamicRect_.pos.y + dynamicRect_.size.y / 2};
             olc::vf2d ray = mousePos - centr;
 
             if (MouseDown_)
@@ -60,11 +60,18 @@ namespace
 
             for (auto rect : rectsPtr_)
             {
-                renderer_->DrawRect(*rect, {255, 0, 0, 255}, false);
+                renderer_->DrawRect(*rect, {255, 0, 0, 255});
             }
 
             if (collision_->Calculate(dynamicRect_, rectsPtr_, timeMs))
             {
+                for (const auto &rect : dynamicRect_.contact)
+                {
+                    if (rect)
+                    {
+                        renderer_->DrawRect(*rect, {255, 160, 0, 255}, true);
+                    }
+                }
                 // dynamicRect_.vel = {0, 0};
             }
 

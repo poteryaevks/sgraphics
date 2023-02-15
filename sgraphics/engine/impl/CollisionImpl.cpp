@@ -33,7 +33,7 @@ namespace sg
 
     bool DynamicCollision::Calculate(FRectType &rect, const RectsType &rects, float time)
     {
-        RectsType contacts;
+        std::vector<FRectType*> contacts;
         olc::vf2d cp, cn;
         float t = 0;
 
@@ -62,6 +62,47 @@ namespace sg
 
     ICollision::RectsType DynamicCollision::GetContacts() const { return {}; }
 
+    ////////////////////////////////////////////////
+
+    DynamicCollision2::DynamicCollision2() = default;
+    DynamicCollision2::~DynamicCollision2() = default;
+
+    bool DynamicCollision2::Calculate(FRectType &rect, const RectsType &rects, float fElapsedTime)
+    {
+        using PairType = std::pair<int, float>;
+        bool result{false};
+        // Sort collisions in order of distance
+        olc::vf2d cp, cn;
+        float t {}; //min_t = std::numeric_limits<float>::max();
+        std::vector<PairType> z;
+
+        // Work out collision point, add it to vector along with rect ID
+        for (size_t i = 0; i < rects.size(); i++)
+        {
+            if (olc::aabb::DynamicRectVsRect(&rect, fElapsedTime, *rects[i], cp, cn, t))
+            {
+                z.push_back({i, t});
+            }
+        }
+
+        // Do the sort
+        std::sort(z.begin(), z.end(), [](const auto &a, const auto &b)
+                  { return a.second < b.second; });
+
+        // Now resolve the collision in correct order
+        for (const auto& [key, value] : z)
+        {
+            olc::aabb::ResolveDynamicRectVsRect(&rect, fElapsedTime, rects[key]);
+            result = true;
+        }
+
+        return result;
+    }
+
+    ICollision::RectsType DynamicCollision2::GetContacts() const { return {}; }
+
+    ///////////////////////////////////////////////////////
+
     ICollision::Ptr ICollision::Create(CollisionType type)
     {
         try
@@ -78,6 +119,12 @@ namespace sg
                 return ICollision::Ptr(new DynamicCollision);
                 break;
             }
+            case CollisionType::Dynamic2:
+            {
+                return ICollision::Ptr(new DynamicCollision2);
+                break;
+            }
+
             default:
                 break;
             }
