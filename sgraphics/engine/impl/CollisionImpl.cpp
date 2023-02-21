@@ -16,6 +16,7 @@ namespace sg
                 if (rect.pos != r->pos)
                 {
                     rect.pos -= rect.vel * time;
+                    rect.vel = {0, 0};
                     return true;
                 }
             }

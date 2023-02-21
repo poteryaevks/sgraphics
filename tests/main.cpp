@@ -49,7 +49,7 @@ namespace
 
             if (MouseDown_)
             {
-                dynamicRect_.vel += ray.norm() * timeMs / 3000;
+                dynamicRect_.vel +=  ray.norm() * timeMs / 3000;
             }
 
             // sg::IntRectType staticRect({{200, 400}, {400, 50}});
@@ -72,7 +72,6 @@ namespace
                         renderer_->DrawRect(*rect, {255, 160, 0, 255}, true);
                     }
                 }
-                // dynamicRect_.vel = {0, 0};
             }
 
             dynamicRect_.pos += dynamicRect_.vel * timeMs;
