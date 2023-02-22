@@ -12,8 +12,10 @@ namespace sg
     {
         Unable,
         Quit,
-        MouseButtonDown,
-        MouseButtonUp
+        LeftMouseButtonDown,
+        RightMouseButtonDown,
+        LeftMouseButtonUp,
+        RightMouseButtonUp
     };
 
     class IEvent : private boost::noncopyable

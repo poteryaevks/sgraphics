@@ -28,10 +28,12 @@ namespace sg
                 switch (event.button.button)
                 {
                 case SDL_BUTTON_LEFT:
-                    type = EventType::MouseButtonDown;
+                    type = EventType::LeftMouseButtonDown;
                     break;
-                default:
+                case SDL_BUTTON_RIGHT:
+                    type = EventType::RightMouseButtonDown;
                     break;
+                default: break;
                 }
                 break;
             }
@@ -40,7 +42,10 @@ namespace sg
                 switch (event.button.button)
                 {
                 case SDL_BUTTON_LEFT:
-                    type = EventType::MouseButtonUp;
+                    type = EventType::LeftMouseButtonUp;
+                    break;
+                case SDL_BUTTON_RIGHT:
+                    type = EventType::RightMouseButtonUp;
                     break;
                 default:
                     break;
@@ -51,7 +56,7 @@ namespace sg
             {
                 type = EventType::Quit;
                 break;
-            }   
+            }
             default:
                 break;
             }

@@ -22,6 +22,7 @@ namespace sg
         IRenderer::Ptr GetRenderer();
         IEventer::Ptr GetEventer();
         ISprite::Ptr CreateSprite(const std::filesystem::path &path, const RgbType &rgb);
+        ISprite::Ptr CreateText(const std::filesystem::path &path, const RgbType &rgb);
 
     private:
         Engine();
