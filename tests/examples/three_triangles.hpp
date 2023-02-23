@@ -21,11 +21,6 @@ namespace
               eventer_(sg::GetEngine().GetEventer()),
               collision_(sg::ICollision::Create(sg::CollisionType::Dynamic2))
         {
-            if (eventer_)
-            {
-                eventer_->AddEventHandler(*this, &TreeTrianglesExample::EventHandler);
-            }
-
             rectsPtr_.push_back(new sg::FRectType({{200, 400}, {400, 50}}));
             rectsPtr_.push_back(new sg::FRectType({{400, 10}, {50, 380}}));
             // rectsPtr_.push_back(new sg::FRectType());
@@ -41,14 +36,14 @@ namespace
 
         void OnUpdate(const Duration &duration) override
         {
+            quit_ = eventer_->Quit();
             renderer_->ClearScreen({255, 255, 255, 255});
             auto timeMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 
-            olc::vf2d mousePos{(float)mousePosition_.first, (float)mousePosition_.second};
             olc::vf2d centr{dynamicRect_.pos.x + dynamicRect_.size.x / 2, dynamicRect_.pos.y + dynamicRect_.size.y / 2};
-            olc::vf2d ray = mousePos - centr;
+            olc::vf2d ray = eventer_->MousePosition() - centr;
 
-            if (leftMouseDown_)
+            if (eventer_->LeftMouseHold())
             {
                 dynamicRect_.vel +=  ray.norm() * timeMs / 3000;
             }
@@ -56,7 +51,7 @@ namespace
             // sg::IntRectType staticRect({{200, 400}, {400, 50}});
             // bool fill = PointVsRect(staticRect) ? true : false;
 
-            renderer_->DrawLine(mousePos, centr, {255, 0, 0, 255});
+            renderer_->DrawLine(eventer_->MousePosition(), centr, {255, 0, 0, 255});
             renderer_->DrawRect(dynamicRect_, {255, 0, 0, 255}, false);
 
             for (auto rect : rectsPtr_)
@@ -80,49 +75,19 @@ namespace
 
         void OnQuit() override {}
 
-        void EventHandler(sg::IEvent::Ptr event)
-        {
-            if (!event)
-                return;
-
-            mousePosition_ = event->GetMousePosition();
-
-            switch (event->GetType())
-            {
-            case sg::EventType::Quit:
-                quit_ = true;
-                break;
-            case sg::EventType::LeftMouseButtonDown:
-            {
-                leftMouseDown_ = true;
-                break;
-            }
-            case sg::EventType::LeftMouseButtonUp:
-            {
-                leftMouseDown_ = false;
-                break;
-            }
-
-            default:
-                break;
-            }
-        }
-
     private:
         bool PointVsRect(const sg::IntRectType &rect)
         {
-            return (mousePosition_.first >= rect.pos.x &&
-                    mousePosition_.second >= rect.pos.y &&
-                    mousePosition_.first <= rect.pos.x + rect.size.x &&
-                    mousePosition_.second <= rect.pos.y + rect.size.y);
+            return (eventer_->MousePosition().x >= rect.pos.x &&
+                    eventer_->MousePosition().y >= rect.pos.y &&
+                    eventer_->MousePosition().x <= rect.pos.x + rect.size.x &&
+                    eventer_->MousePosition().y <= rect.pos.y + rect.size.y);
         }
 
     private:
         sg::IRenderer::Ptr renderer_;
         sg::IEventer::Ptr eventer_;
-        sg::MousePosType mousePosition_;
         sg::FRectType dynamicRect_{{78, 180}, {50, 50}};
-        bool leftMouseDown_{false};
         sg::ICollision::RectsType rectsPtr_;
         sg::ICollision::Ptr collision_;
     };

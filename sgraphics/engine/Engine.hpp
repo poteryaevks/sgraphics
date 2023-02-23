@@ -7,6 +7,7 @@
 #include <sgraphics/engine/IEventer.hpp>
 #include <sgraphics/engine/IWindow.hpp>
 #include <sgraphics/engine/ISprite.hpp>
+#include <sgraphics/engine/IFont.hpp>
 
 #include <filesystem>
 
@@ -22,7 +23,7 @@ namespace sg
         IRenderer::Ptr GetRenderer();
         IEventer::Ptr GetEventer();
         ISprite::Ptr CreateSprite(const std::filesystem::path &path, const RgbType &rgb);
-        ISprite::Ptr CreateText(const std::filesystem::path &path, const RgbType &rgb);
+        IFont::Ptr CreateFont(const std::filesystem::path &path = "fonts/FreeSans.ttf");
 
     private:
         Engine();

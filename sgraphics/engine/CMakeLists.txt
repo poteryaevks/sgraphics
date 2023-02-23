@@ -25,15 +25,19 @@ target_include_directories(${TARGET_NAME} PRIVATE
     "${SG_SOURCE_ROOT_DIR}"
     )
 
-target_compile_features(${TARGET_NAME} PUBLIC cxx_std_17)
+target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
 
-target_link_libraries(${TARGET_NAME} PRIVATE
+target_link_libraries(${TARGET_NAME} PUBLIC
     GLEW
     SDL2
     SDL2_image
     )
 
-_SG_EXPORT_TARGET(${PROJECT_NAME}
-    "${TARGET_NAME}"
-    "${_HEADER_FILES}"
-    )
+if(USE_THIRD_PARTY)
+    target_link_libraries(${TARGET_NAME} PUBLIC FontCache)
+endif()
+
+# _SG_EXPORT_TARGET(${PROJECT_NAME}
+#     "${TARGET_NAME}"
+#     "${_HEADER_FILES}"
+#     )

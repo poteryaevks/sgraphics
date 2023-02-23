@@ -65,6 +65,9 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "variant": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "sdl_fontcache.h": "c",
+        "string.h": "c",
+        "codecvt": "cpp"
     }
 }

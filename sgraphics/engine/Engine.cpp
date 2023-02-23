@@ -12,6 +12,7 @@
 #include <sgraphics/engine/impl/SdlEventer.hpp>
 #include <sgraphics/engine/impl/SdlWindow.hpp>
 #include <sgraphics/engine/impl/SdlSprite.hpp>
+#include <sgraphics/engine/impl/SdlFont.hpp>
 
 namespace sg
 {
@@ -59,5 +60,14 @@ namespace sg
     ISprite::Ptr Engine::CreateSprite(const std::filesystem::path &path, const RgbType &rgb)
     {
         return inited_ ? std::make_shared<SdlSprite>(path, rgb) : nullptr;
+    }
+
+    IFont::Ptr Engine::CreateFont(const std::filesystem::path &path)
+    {
+        if(!inited_ || !renderer_)
+            return nullptr;
+
+        auto renderer = dynamic_cast<SdlRenderer*>(renderer_.get());
+        return IFont::Ptr(new SdlFont(renderer->renderer_, path));
     }
 }

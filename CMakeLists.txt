@@ -58,29 +58,26 @@ if(${SDL2_FOUND})
     message("SLD2 include: " ${SDL2_INCLUDE_DIRS})
 endif()
 
-# Seek
-
 set(CMAKE_DEBUG_POSTFIX "d")
 
 set(SG_SOURCE_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set(SG_BINARY_ROOT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
-# set(SG_DEPS_INCLUDE "${SG_SOURCE_ROOT_DIR}/deps/include")
-# set(SG_DEPS_LIB_DIR "${SG_SOURCE_ROOT_DIR}/deps")
-
-#include_directories("${SG_DEPS_LIB_DIR}")
-
-#
 string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
 
 set(CONFIG_INSTALL_DIR lib/cmake/${LOWER_PROJECT_NAME})
 set(INCLUDE_INSTALL_DIR include)
 set(LIBRARY_INSTALL_DIR lib)
 
+include_directories(${CMAKE_SOURCE_DIR})
+
+if(USE_THIRD_PARTY)
+    add_subdirectory(third_party/sdl_font_cache)
+endif()
+
 add_subdirectory(sgraphics/geometry)
 add_subdirectory(sgraphics/convertion)
 add_subdirectory(sgraphics/engine)
-
 
 if(BUILD_TESTING)
     enable_testing()

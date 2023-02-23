@@ -2,6 +2,9 @@
 #include "Engine.hpp"
 #include "IEventer.hpp"
 
+#include <sgraphics/engine/IEventer.hpp>
+#include <sgraphics/engine/IEvent.hpp>
+
 #include <sgraphics/geometry/olc.h>
 #include <sgraphics/geometry/types.hpp>
 

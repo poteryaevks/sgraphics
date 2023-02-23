@@ -22,8 +22,6 @@ namespace
               window_(sg::GetEngine().GetWindow()),
               eventer_(sg::GetEngine().GetEventer())
         {
-            eventer_->AddEventHandler(*this, &Grid::EventHandler);
-
             for (int i = 0; i < width / 20; ++i)
             {
                 for (int j = 0; j < hight / 20; ++j)
@@ -37,18 +35,16 @@ namespace
 
         void OnUpdate(const Duration &duration) override
         {
+            quit_ = eventer_->Quit();
+
             renderer_->ClearScreen({255, 255, 255, 255});
 
             for (auto &[rect, color] : rects_)
             {
-                if (PointVsRect(rect) && leftMouseDown_)
+                if (PointVsRect(rect) && eventer_->LeftMouseHold())
                 {
                     color = sg::DARK_BLUE;
                     renderer_->DrawRect(rect, color, true);
-                }
-                if (PointVsRect(rect) && !leftMouseDown_)
-                {
-                    renderer_->DrawRect(rect, sg::TRANSPER_DARK_BLUE, true);
                 }
                 else
                 {
@@ -56,7 +52,7 @@ namespace
                     renderer_->DrawRect(rect, color, fill);
                 }
 
-                if(PointVsRect(rect) && rightMouseDown_)
+                if (PointVsRect(rect) && eventer_->RightMouseHold())
                 {
                     color = sg::TRANSPER_DARK_BLUE;
                     renderer_->DrawRect(rect, color, false);
@@ -66,59 +62,21 @@ namespace
 
         void OnQuit() override {}
 
-        void EventHandler(sg::IEvent::Ptr event)
-        {
-            if (!event)
-                return;
-
-            mousePosition_ = event->GetMousePosition();
-
-            switch (event->GetType())
-            {
-            case sg::EventType::Quit:
-                quit_ = true;
-                break;
-            case sg::EventType::LeftMouseButtonDown:
-            {
-                leftMouseDown_ = true;
-                break;
-            }
-            case sg::EventType::LeftMouseButtonUp:
-            {
-                leftMouseDown_ = false;
-                break;
-            }
-            case sg::EventType::RightMouseButtonDown:
-            {
-                rightMouseDown_ = true;
-                break;
-            }
-            case sg::EventType::RightMouseButtonUp:
-            {
-                rightMouseDown_ = false;
-                break;
-            }
-
-            default:
-                break;
-            }
-        }
-
         bool PointVsRect(const sg::IntRectType &rect)
         {
-            return (mousePosition_.first >= rect.pos.x &&
-                    mousePosition_.second >= rect.pos.y &&
-                    mousePosition_.first <= rect.pos.x + rect.size.x &&
-                    mousePosition_.second <= rect.pos.y + rect.size.y);
+            return (eventer_->MousePosition().x >= rect.pos.x &&
+                    eventer_->MousePosition().y >= rect.pos.y &&
+                    eventer_->MousePosition().x <= rect.pos.x + rect.size.x &&
+                    eventer_->MousePosition().y <= rect.pos.y + rect.size.y);
         }
 
     private:
         sg::IRenderer::Ptr renderer_;
         sg::IWindow::Ptr window_;
         sg::IEventer::Ptr eventer_;
-        sg::MousePosType mousePosition_;
-        bool leftMouseDown_{false};
-        bool rightMouseDown_{false};
+        // sg::MousePosType mousePosition_;
+        // bool leftMouseDown_{false};
+        // bool rightMouseDown_{false};
         std::vector<PairType> rects_;
     };
 }

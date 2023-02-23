@@ -11,11 +11,12 @@
 #include <SDL2/SDL.h>
 
 namespace sg
-{   
+{
     class SdlRenderer final : public IRenderer
     {
     private:
-          SDL_Renderer *renderer_;
+        friend class Engine;
+        SDL_Renderer *renderer_;
 
     public:
         SdlRenderer(IWindow::Ptr window);
