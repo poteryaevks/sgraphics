@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.11.0)
 
-project(SG LANGUAGES C CXX VERSION 0.1)
+project(Sgraphics LANGUAGES C CXX VERSION 0.1)
 
 set(CMAKE_MODULES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(${CMAKE_MODULES_DIR}/functions.cmake)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
+set(USE_THIRD_PARTY ON)
 
 # Config
 
@@ -72,7 +71,7 @@ set(LIBRARY_INSTALL_DIR lib)
 include_directories(${CMAKE_SOURCE_DIR})
 
 if(USE_THIRD_PARTY)
-    add_subdirectory(third_party/sdl_font_cache)
+    add_subdirectory(libs)
 endif()
 
 add_subdirectory(sgraphics/geometry)

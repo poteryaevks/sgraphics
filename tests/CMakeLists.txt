@@ -16,12 +16,11 @@ add_executable(${TARGET_NAME}
     "${_HEADER_FILES}"
     )
 
-
 target_link_libraries(${TARGET_NAME}
     PRIVATE ${GTEST_LIBRARIES}
-    SG::convertion
-    SG::geometry
-    SG::engine
+    convertion
+    geometry
+    engine
     )
 
 # Includes
@@ -29,9 +28,7 @@ target_link_libraries(${TARGET_NAME}
 target_include_directories(${TARGET_NAME}
     PRIVATE ${GTEST_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}
-    # "${CMAKE_SOURCE_DIR}/deps/include"
     )
-
 
 target_compile_options(${TARGET_NAME} PRIVATE
     "$<$<CONFIG:Debug>:-Wall;-D_DEBUG>"
@@ -39,7 +36,7 @@ target_compile_options(${TARGET_NAME} PRIVATE
     )
 
 set_target_properties(${TARGET_NAME} PROPERTIES
-    CXX_STANDARD 14
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
     )

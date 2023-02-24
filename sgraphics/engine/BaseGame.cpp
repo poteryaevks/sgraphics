@@ -35,6 +35,7 @@ namespace sg
         auto eventer = GetEngine().GetEventer();
         auto renderer = GetEngine().GetRenderer();
 
+        this->OnCreate();
         while (!quit_)
         {
             start = Clock::now();

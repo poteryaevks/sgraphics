@@ -29,7 +29,6 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     GLEW
     SDL2
     PRIVATE convertion
-#     "${CMAKE_INSTALL_PREFIX}/${LIBRARY_INSTALL_DIR}/libSDL2_image.dll"
     )
 
 

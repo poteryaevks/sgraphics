@@ -34,6 +34,8 @@ namespace
             }
         }
 
+        void OnCreate() override {}
+
         void OnUpdate(const Duration &duration) override
         {
             quit_ = eventer_->Quit();
