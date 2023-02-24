@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace sg
+namespace sgraphics
 {
     class IRenderer : private boost::noncopyable
     {

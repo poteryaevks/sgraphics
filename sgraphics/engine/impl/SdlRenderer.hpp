@@ -10,7 +10,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 
-namespace sg
+namespace sgraphics
 {
     class SdlRenderer final : public IRenderer
     {

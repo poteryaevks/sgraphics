@@ -5,7 +5,7 @@
 #include "sgraphics/geometry/types.hpp"
 #include <SDL2/SDL.h>
 
-namespace sg
+namespace sgraphics
 {
     class SdlEvent final : public IEvent
     {

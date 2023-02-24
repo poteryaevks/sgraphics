@@ -9,7 +9,7 @@
 #include "sgraphics/geometry/types.hpp"
 #include "../ICollision.hpp"
 
-namespace sg
+namespace sgraphics
 {
     class StaticCollision final: public ICollision
     {

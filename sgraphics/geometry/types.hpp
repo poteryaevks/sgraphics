@@ -2,7 +2,7 @@
 
 #include <sgraphics/geometry/olc.h>
 
-namespace sg
+namespace sgraphics
 {
     using FRectType = olc::aabb::rect<float>;
     using IntRectType = olc::aabb::rect<std::int32_t>;

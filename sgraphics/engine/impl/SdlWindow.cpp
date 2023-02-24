@@ -1,6 +1,6 @@
 #include "SdlWindow.hpp"
 
-namespace sg
+namespace sgraphics
 {
     SdlWindow::SdlWindow(std::string title, int width, int hight)
         : width_(width),

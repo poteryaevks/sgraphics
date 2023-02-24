@@ -14,7 +14,7 @@
 #include <sgraphics/engine/impl/SdlSprite.hpp>
 #include <sgraphics/engine/impl/SdlFont.hpp>
 
-namespace sg
+namespace sgraphics
 {
     Engine::Engine() = default;
     Engine::~Engine()

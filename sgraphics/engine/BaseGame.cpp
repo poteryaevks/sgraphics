@@ -18,7 +18,7 @@ namespace
     using namespace std::chrono_literals;
 }
 
-namespace sg
+namespace sgraphics
 {
     BaseGame::BaseGame(const std::string &title, int width, int hight)
     {

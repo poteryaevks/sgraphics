@@ -8,7 +8,7 @@
 
 #include "../ITexture.hpp"
 
-namespace sg
+namespace sgraphics
 {
     class SdlTextureImpl final : public ITexture
     {

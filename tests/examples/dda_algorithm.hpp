@@ -20,36 +20,36 @@ namespace
     const olc::vi2d MAP_SIZE{16, 16};
     constexpr float MaxDistance{2000};
 
-    class DdaAlgorithm final : public sg::BaseGame
+    class DdaAlgorithm final : public sgraphics::BaseGame
     {
     public:
-        using PairType = std::pair<sg::IntRectType, sg::RgbType>;
+        using PairType = std::pair<sgraphics::IntRectType, sgraphics::RgbType>;
 
         DdaAlgorithm(const std::string &title, int width = 1024, int hight = 840)
-            : sg::BaseGame(title, width, hight),
-              renderer_(sg::GetEngine().GetRenderer()),
-              window_(sg::GetEngine().GetWindow()),
-              eventer_(sg::GetEngine().GetEventer()),
-              m_font(sg::GetEngine().CreateFont())
+            : sgraphics::BaseGame(title, width, hight),
+              renderer_(sgraphics::GetEngine().GetRenderer()),
+              window_(sgraphics::GetEngine().GetWindow()),
+              eventer_(sgraphics::GetEngine().GetEventer()),
+              m_font(sgraphics::GetEngine().CreateFont())
         {
             for (int i = 0; i < MAP_SIZE.y; ++i)
             {
                 for (int j = 0; j < MAP_SIZE.x; ++j)
                 {
-                    rects_.push_back({sg::IntRectType({{i * TILE.x, j * TILE.y}, TILE}), sg::TRANSPER_DARK_BLUE});
+                    rects_.push_back({sgraphics::IntRectType({{i * TILE.x, j * TILE.y}, TILE}), sgraphics::TRANSPER_DARK_BLUE});
                 }
             }
         }
 
         void OnCreate() override
         {
-            renderer_->ClearScreen(sg::WHITE);
+            renderer_->ClearScreen(sgraphics::WHITE);
             for (int y = 0; y < MAP_SIZE.y; ++y)
             {
                 for (int x = 0; x < MAP_SIZE.x; ++x)
                 {
                     std::size_t i = x * MAP_SIZE.x + y;
-                    renderer_->DrawRect(rects_[i].first, sg::TRANSPER_DARK_BLUE, false);
+                    renderer_->DrawRect(rects_[i].first, sgraphics::TRANSPER_DARK_BLUE, false);
                     renderer_->RenderPresent();
                     std::this_thread::sleep_for(5ms);
                 }
@@ -63,8 +63,8 @@ namespace
             quit_ = eventer_->Quit();
 
             auto endPoint = eventer_->MousePosition();
-            renderer_->ClearScreen(sg::WHITE);
-            renderer_->DrawCircle(endPoint, 10, sg::RED, true);
+            renderer_->ClearScreen(sgraphics::WHITE);
+            renderer_->DrawCircle(endPoint, 10, sgraphics::RED, true);
 
             if (eventer_->SHold()) { startPoint_.y += 1; }
             if (eventer_->WHold()) { startPoint_.y -= 1; }
@@ -75,18 +75,18 @@ namespace
             {
                 if (PointVsRect(rect) && eventer_->LeftMouseHold())
                 {
-                    color = sg::DARK_BLUE;
+                    color = sgraphics::DARK_BLUE;
                     renderer_->DrawRect(rect, color, true);
                 }
                 else
                 {
-                    bool fill = (color == sg::DARK_BLUE) ? true : false;
+                    bool fill = (color == sgraphics::DARK_BLUE) ? true : false;
                     renderer_->DrawRect(rect, color, fill);
                 }
             }
 
-            renderer_->DrawCircle(startPoint_, 10, sg::GREEN, true);
-            renderer_->DrawLine(startPoint_, eventer_->MousePosition(), sg::RED);
+            renderer_->DrawCircle(startPoint_, 10, sgraphics::GREEN, true);
+            renderer_->DrawLine(startPoint_, eventer_->MousePosition(), sgraphics::RED);
 
             // draw point of a first intersection
             if (eventer_->RightMouseHold())
@@ -163,13 +163,13 @@ namespace
                 std::size_t i = tile.x * MAP_SIZE.y + tile.y;
                 if (i < rects_.size())
                 {
-                    if (rects_[i].second == sg::DARK_BLUE)
+                    if (rects_[i].second == sgraphics::DARK_BLUE)
                     {
                         olc::vf2d point{direction * distance};
                         point += startPoint_;
 
-                        renderer_->DrawRect(rects_[i].first, sg::RED, true);
-                        renderer_->DrawCircle(point, 10, sg::YELLOW, true);
+                        renderer_->DrawRect(rects_[i].first, sgraphics::RED, true);
+                        renderer_->DrawCircle(point, 10, sgraphics::YELLOW, true);
                         found = true;
                     }
                 }
@@ -178,7 +178,7 @@ namespace
 
         void OnQuit() override {}
 
-        bool PointVsRect(const sg::IntRectType &rect)
+        bool PointVsRect(const sgraphics::IntRectType &rect)
         {
             return (eventer_->MousePosition().x >= rect.pos.x &&
                     eventer_->MousePosition().y >= rect.pos.y &&
@@ -192,10 +192,10 @@ namespace
         }
 
     private:
-        sg::IRenderer::Ptr renderer_;
-        sg::IWindow::Ptr window_;
-        sg::IEventer::Ptr eventer_;
-        sg::IFont::Ptr m_font;
+        sgraphics::IRenderer::Ptr renderer_;
+        sgraphics::IWindow::Ptr window_;
+        sgraphics::IEventer::Ptr eventer_;
+        sgraphics::IFont::Ptr m_font;
         olc::vf2d startPoint_{};
         std::vector<PairType> rects_;
     };

@@ -8,7 +8,7 @@
 
 #include <alm/common/event.h>
 
-namespace sg
+namespace sgraphics
 {
     class IEventer : private boost::noncopyable
     {

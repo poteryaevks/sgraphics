@@ -11,7 +11,7 @@
 
 #include <filesystem>
 
-namespace sg
+namespace sgraphics
 {
     class Engine : public alm::misc::Singleton<Engine>
     {

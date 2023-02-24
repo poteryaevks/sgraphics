@@ -8,7 +8,7 @@
 
 #include <SDL2/SDL.h>
 
-namespace sg
+namespace sgraphics
 {
     class SdlEventer final : public IEventer
     {

@@ -12,17 +12,17 @@
 
 namespace
 {
-    class TreeTrianglesExample final : public sg::BaseGame
+    class TreeTrianglesExample final : public sgraphics::BaseGame
     {
     public:
         TreeTrianglesExample(const std::string &title)
-            : sg::BaseGame(title),
-              renderer_(sg::GetEngine().GetRenderer()),
-              eventer_(sg::GetEngine().GetEventer()),
-              collision_(sg::ICollision::Create(sg::CollisionType::Dynamic2))
+            : sgraphics::BaseGame(title),
+              renderer_(sgraphics::GetEngine().GetRenderer()),
+              eventer_(sgraphics::GetEngine().GetEventer()),
+              collision_(sgraphics::ICollision::Create(sgraphics::CollisionType::Dynamic2))
         {
-            rectsPtr_.push_back(new sg::FRectType({{200, 400}, {400, 50}}));
-            rectsPtr_.push_back(new sg::FRectType({{400, 10}, {50, 380}}));
+            rectsPtr_.push_back(new sgraphics::FRectType({{200, 400}, {400, 50}}));
+            rectsPtr_.push_back(new sgraphics::FRectType({{400, 10}, {50, 380}}));
             // rectsPtr_.push_back(new sg::FRectType());
         }
 
@@ -78,7 +78,7 @@ namespace
         void OnQuit() override {}
 
     private:
-        bool PointVsRect(const sg::IntRectType &rect)
+        bool PointVsRect(const sgraphics::IntRectType &rect)
         {
             return (eventer_->MousePosition().x >= rect.pos.x &&
                     eventer_->MousePosition().y >= rect.pos.y &&
@@ -87,10 +87,10 @@ namespace
         }
 
     private:
-        sg::IRenderer::Ptr renderer_;
-        sg::IEventer::Ptr eventer_;
-        sg::FRectType dynamicRect_{{78, 180}, {50, 50}};
-        sg::ICollision::RectsType rectsPtr_;
-        sg::ICollision::Ptr collision_;
+        sgraphics::IRenderer::Ptr renderer_;
+        sgraphics::IEventer::Ptr eventer_;
+        sgraphics::FRectType dynamicRect_{{78, 180}, {50, 50}};
+        sgraphics::ICollision::RectsType rectsPtr_;
+        sgraphics::ICollision::Ptr collision_;
     };
 }

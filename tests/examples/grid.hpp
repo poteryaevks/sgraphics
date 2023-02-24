@@ -11,22 +11,22 @@
 
 namespace
 {
-    class Grid final : public sg::BaseGame
+    class Grid final : public sgraphics::BaseGame
     {
     public:
-        using PairType = std::pair<sg::IntRectType, sg::RgbType>;
+        using PairType = std::pair<sgraphics::IntRectType, sgraphics::RgbType>;
 
         Grid(const std::string &title, int width = 800, int hight = 640)
-            : sg::BaseGame(title, width, hight),
-              renderer_(sg::GetEngine().GetRenderer()),
-              window_(sg::GetEngine().GetWindow()),
-              eventer_(sg::GetEngine().GetEventer())
+            : sgraphics::BaseGame(title, width, hight),
+              renderer_(sgraphics::GetEngine().GetRenderer()),
+              window_(sgraphics::GetEngine().GetWindow()),
+              eventer_(sgraphics::GetEngine().GetEventer())
         {
             for (int i = 0; i < width / 20; ++i)
             {
                 for (int j = 0; j < hight / 20; ++j)
                 {
-                    rects_.push_back({sg::IntRectType({{i * 20, j * 20}, {20, 20}}), sg::TRANSPER_DARK_BLUE});
+                    rects_.push_back({sgraphics::IntRectType({{i * 20, j * 20}, {20, 20}}), sgraphics::TRANSPER_DARK_BLUE});
                 }
             }
         }
@@ -45,18 +45,18 @@ namespace
             {
                 if (PointVsRect(rect) && eventer_->LeftMouseHold())
                 {
-                    color = sg::DARK_BLUE;
+                    color = sgraphics::DARK_BLUE;
                     renderer_->DrawRect(rect, color, true);
                 }
                 else
                 {
-                    bool fill = (color == sg::DARK_BLUE) ? true : false;
+                    bool fill = (color == sgraphics::DARK_BLUE) ? true : false;
                     renderer_->DrawRect(rect, color, fill);
                 }
 
                 if (PointVsRect(rect) && eventer_->RightMouseHold())
                 {
-                    color = sg::TRANSPER_DARK_BLUE;
+                    color = sgraphics::TRANSPER_DARK_BLUE;
                     renderer_->DrawRect(rect, color, false);
                 }
             }
@@ -64,7 +64,7 @@ namespace
 
         void OnQuit() override {}
 
-        bool PointVsRect(const sg::IntRectType &rect)
+        bool PointVsRect(const sgraphics::IntRectType &rect)
         {
             return (eventer_->MousePosition().x >= rect.pos.x &&
                     eventer_->MousePosition().y >= rect.pos.y &&
@@ -73,12 +73,9 @@ namespace
         }
 
     private:
-        sg::IRenderer::Ptr renderer_;
-        sg::IWindow::Ptr window_;
-        sg::IEventer::Ptr eventer_;
-        // sg::MousePosType mousePosition_;
-        // bool leftMouseDown_{false};
-        // bool rightMouseDown_{false};
+        sgraphics::IRenderer::Ptr renderer_;
+        sgraphics::IWindow::Ptr window_;
+        sgraphics::IEventer::Ptr eventer_;
         std::vector<PairType> rects_;
     };
 }

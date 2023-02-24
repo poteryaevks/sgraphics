@@ -1,6 +1,6 @@
 #include "SdlEventer.hpp"
 
-namespace sg
+namespace sgraphics
 {
     SdlEventer::SdlEventer()
         : sdlEvent_(IEvent::Ptr(new SdlEvent(event_)))

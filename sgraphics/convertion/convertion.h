@@ -7,7 +7,7 @@
 
 #include <sgraphics/geometry/olc.h>
 
-namespace sg {
+namespace sgraphics {
 
 namespace convertion {
 

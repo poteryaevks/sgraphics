@@ -8,7 +8,7 @@
 
 #include "../IImage.hpp"
 
-namespace sg
+namespace sgraphics
 {
     struct SdlImageImpl final : public IImage
     {

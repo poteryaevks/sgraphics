@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <SDL2/SDL.h>
 
-namespace sg
+namespace sgraphics
 {
     class SdlFont final : public IFont
     {

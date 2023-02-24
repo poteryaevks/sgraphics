@@ -2,7 +2,7 @@
 
 #include <sgraphics/convertion/convertion.h>
 
-namespace sg {
+namespace sgraphics {
 
 namespace convertion {
 

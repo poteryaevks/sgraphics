@@ -10,13 +10,13 @@
 
 namespace
 {
-    void SetPixel(SDL_Renderer *renderer, const olc::vf2d &point, const sg::RgbType &rbg)
+    void SetPixel(SDL_Renderer *renderer, const olc::vf2d &point, const sgraphics::RgbType &rbg)
     {
         SDL_SetRenderDrawColor(renderer, rbg[0], rbg[1], rbg[2], rbg[3]);
         SDL_RenderDrawPoint(renderer, point.x, point.y);
     }
 
-    void DrawCircle(SDL_Renderer *renderer, const olc::vi2d &point, std::int32_t radius, const sg::RgbType &rgb)
+    void DrawCircle(SDL_Renderer *renderer, const olc::vi2d &point, std::int32_t radius, const sgraphics::RgbType &rgb)
     {
         // if the first pixel in the screen is represented by (0,0) (which is in sdl)
         // remember that the beginning of the circle is not in the middle of the pixel
@@ -75,7 +75,7 @@ namespace
     }
 }
 
-namespace sg
+namespace sgraphics
 {
     SdlRenderer::SdlRenderer(IWindow::Ptr window)
     {

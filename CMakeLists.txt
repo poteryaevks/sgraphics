@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11.0)
 
-project(SG LANGUAGES C CXX VERSION 0.1)
+project(Sgraphics LANGUAGES C CXX VERSION 0.1)
 
 set(CMAKE_MODULES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(${CMAKE_MODULES_DIR}/functions.cmake)

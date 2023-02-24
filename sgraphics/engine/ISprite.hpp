@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <memory>
 
-namespace sg
+namespace sgraphics
 {
     class ISprite : private boost::noncopyable
     {

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace sg
+namespace sgraphics
 {
     StaticCollision::StaticCollision() = default;
     StaticCollision::~StaticCollision() = default;

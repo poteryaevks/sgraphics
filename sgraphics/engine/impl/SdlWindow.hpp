@@ -7,7 +7,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace sg
+namespace sgraphics
 {
     class SdlWindow final : public IWindow
     {

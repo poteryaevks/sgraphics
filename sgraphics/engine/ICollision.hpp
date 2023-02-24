@@ -6,7 +6,7 @@
 
 #include <sgraphics/geometry/types.hpp>
 
-namespace sg
+namespace sgraphics
 {
     enum class CollisionType
     {

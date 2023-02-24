@@ -7,7 +7,7 @@
 
 #include <alm/common/event.h>
 
-namespace sg
+namespace sgraphics
 {
     class IFont : private boost::noncopyable
     {

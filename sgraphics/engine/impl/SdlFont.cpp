@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace sg
+namespace sgraphics
 {
     SdlFont::SdlFont(SDL_Renderer *renderer, const std::filesystem::path filename)
         : IFont(),

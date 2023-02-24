@@ -3,7 +3,7 @@
 #include <boost/noncopyable.hpp>
 #include <memory>
 
-namespace sg
+namespace sgraphics
 {
     class IWindow : private boost::noncopyable
     {

@@ -13,7 +13,7 @@
 
 #include "../ISprite.hpp"
 
-namespace sg
+namespace sgraphics
 {
     struct SdlImageImpl;
     struct SdlTextureImpl;
