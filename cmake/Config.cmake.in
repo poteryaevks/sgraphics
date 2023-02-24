@@ -32,6 +32,7 @@ endmacro()
 ####################################################################################
 
 set(_supported_components
+    sdl_font_cache
     convertion
     geometry
     engine
@@ -64,6 +65,3 @@ set (SG_INCLUDE_DIRS "${PACKAGE_PREFIX_DIR}/../include")
 
 
 ####################################################################################
-
-
-
